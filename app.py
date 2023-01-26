@@ -67,7 +67,6 @@ def handle_message(event):
           cur.execute(sql)
           con.commit()
           msg = "created table:> members"
-          return
         '''
         sql = f"SELECT * FROM members WHERE uid = '{event.source.user_id}'"
         cur.execute(sql)
@@ -76,9 +75,10 @@ def handle_message(event):
             if records[0][4] == 'F':
                 notify = False
         '''
-
+        if userMsg == "/createmembers":
+          pass
         # help commands
-        if userMsg == "/?":
+        elif userMsg == "/?":
             msg = "COMMAND DUMP:\n/help\n/help misc\n/help event\n/help fun\n/changelog\n/suggest\n/feed\n/duckgame\n/petsheet\n/bathe|bath\n/compliment\n/ac\n/joke\n/aj\n/ball\n/blog\n/createcommand|cc\n/cic\n/it\n/initiate\n/bank\n/pay\n/cf\n/cf join\n/cf cancel\n/hl|hitlist"
         elif userMsg == "/help":
             msg = "/? - command dump\n/help fun - lists fun commands\n/help event - lists event based commands\n/help misc - lists general commands\n/changelog - view a list of changes made in the recent updates to Sir Quacksly"
@@ -197,7 +197,7 @@ def handle_message(event):
                 cur.execute(f"SELECT * FROM ball WHERE username = '{name}';")
                 records = cur.fetchall()
                 if len(records) == 0:
-                    sql = f'''INSERT INTO ball (username, compliment, insult) VALUES ('{name}', {listMsg[2]}, {listMsg[3]});'''
+                    sql = f"INSERT INTO ball (username, compliment, insult) VALUES ('{name}', {listMsg[2]}, {listMsg[3]});"
                     cur.execute(sql)
                     con.commit()
                 else:
@@ -209,17 +209,17 @@ def handle_message(event):
                 else:
                     reply = False
             else:
-                msg = f"incorrect syntax; /ball [name] or /ball [name] [num compliments] [num insults]"
+                msg = "incorrect syntax; /ball [name] or /ball [name] [num compliments] [num insults]"
 
         # neg kicks
         elif listMsg[0] in ["/hitlist", "/hl"]:
             if len(listMsg) == 1:
-                cur.execute(f"SELECT * FROM neg;")
+                cur.execute("SELECT * FROM neg;")
                 records = cur.fetchall()
                 if len(records) == 0:
-                    msg = f"no records in table"
+                    msg = "no records in table"
                 else:
-                    msg = f"negotiation kicks :>"
+                    msg = "negotiation kicks :>"
                     for record in records:
                         msg += f"\n{record[0]} last kicked us on {str(record[1])}"
             elif len(listMsg) == 2:
@@ -227,7 +227,7 @@ def handle_message(event):
                 cur.execute(f"SELECT * FROM neg WHERE kicker = '{name}';")
                 records = cur.fetchall()
                 if len(records) == 0:
-                    sql = f'''INSERT INTO neg (kicker, lastkicked) VALUES ('{name}', '{date.today()}');'''
+                    sql = f"INSERT INTO neg (kicker, lastkicked) VALUES ('{name}', '{date.today()}');"
                     cur.execute(sql)
                     con.commit()
                 else:
@@ -368,13 +368,13 @@ def handle_message(event):
             records = cur.fetchall()
             if len(records) == 0:
                 profile = line_bot_api.get_group_member_profile(omcID, event.source.user_id)
-                sql = f'''INSERT INTO members VALUES ('{profile.user_id}', '{profile.display_name}', 100, '{date.today()}', 'T');'''
+                sql = f"INSERT INTO members VALUES ('{profile.user_id}', '{profile.display_name}', 100, '{date.today()}', 'T');"
                 cur.execute(sql)
                 con.commit()
                 msg = "welcome to the clique"
             else:
                 if records[0][1] == line_bot_api.get_group_member_profile(omcID, event.source.user_id).display_name:
-                    msg = f"you have already been initialised"
+                    msg = "you have already been initialised"
                 else:
                     sql = f"UPDATE members SET username = '{line_bot_api.get_group_member_profile(omcID, event.source.user_id).display_name}' WHERE uid = '{event.source.user_id}';"
                     cur.execute(sql)
@@ -390,7 +390,7 @@ def handle_message(event):
                     if i != 0 and i != 1:
                         username += sec + " "
                 username = username.strip()
-                sql = f'''INSERT INTO members VALUES ('{normalListMsg[1]}', '{username}', 0, '{date.today()}', 'T');'''
+                sql = f"INSERT INTO members VALUES ('{normalListMsg[1]}', '{username}', 0, '{date.today()}', 'T');"
                 cur.execute(sql)
                 con.commit()
                 msg = f'{username} initiated'
@@ -485,7 +485,7 @@ def handle_message(event):
         elif listMsg[0] == "/cf":
             if len(listMsg) == 1:
                 # list current bets
-                sql = f"SELECT * FROM cf"
+                sql = "SELECT * FROM cf"
                 cur.execute(sql)
                 records = cur.fetchall()
                 if len(records) == 0:
@@ -589,14 +589,14 @@ def handle_message(event):
                                 cur.execute(sql)
                                 con.commit()
                                 # /cf name amount head/tail
-                                sql = f'''INSERT INTO cf VALUES ('{listMsg[1]}', '{event.source.user_id}', '{listMsg[2]}','{listMsg[3]}');'''
+                                sql = f"INSERT INTO cf VALUES ('{listMsg[1]}', '{event.source.user_id}', '{listMsg[2]}','{listMsg[3]}');"
                                 cur.execute(sql)
                                 con.commit()
                                 msg = f"betting {listMsg[2]} coins on {listMsg[3]}, to join type /cf join {listMsg[1]}"
                             else:
                                 msg = "you do not have enough coins for this bet"
                         else:
-                            msg = f"flip choice invalid choose 'heads' or 'tails'"
+                            msg = "flip choice invalid choose 'heads' or 'tails'"
                 else:
                     msg = f"game name taken ({listMsg[1]})"
         # mute acknowledgements
@@ -638,12 +638,12 @@ def handle_message(event):
                     cur.execute(sql)
                     records = cur.fetchall()
                     if len(records) == 0:
-                        sql = f'''INSERT INTO translator VALUES ('{event.source.user_id}', '{listMsg[1]}');'''
+                        sql = f"INSERT INTO translator VALUES ('{event.source.user_id}', '{listMsg[1]}');"
                         cur.execute(sql)
                         con.commit()
                         msg = "language preference set"
                     else:
-                        sql = f'''UPDATE translator SET language = '{listMsg[1]}' WHERE uid = '{event.source.user_id}';'''
+                        sql = f"UPDATE translator SET language = '{listMsg[1]}' WHERE uid = '{event.source.user_id}';"
                         cur.execute(sql)
                         con.commit()
                         msg = "language preference updated"
@@ -784,7 +784,7 @@ def handle_message(event):
                     cur.execute(f"SELECT * FROM imagecs WHERE request = '{req}';")
                     response = cur.fetchall()
                     if len(response) == 0:
-                        msg = f"i couldn't find that command"
+                        msg = "i couldn't find that command"
                     else:
                         url = f"{response[0][1]}"
                         imageReply = True
