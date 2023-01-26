@@ -68,13 +68,14 @@ def handle_message(event):
           con.commit()
           msg = "created table:> members"
           return
-
+        '''
         sql = f"SELECT * FROM members WHERE uid = '{event.source.user_id}'"
         cur.execute(sql)
         records = cur.fetchall()
         if len(records) != 0:
             if records[0][4] == 'F':
                 notify = False
+        '''
 
         # help commands
         if userMsg == "/?":
