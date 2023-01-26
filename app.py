@@ -67,6 +67,7 @@ def handle_message(event):
           cur.execute(sql)
           con.commit()
           msg = "created table:> members"
+          return
 
         sql = f"SELECT * FROM members WHERE uid = '{event.source.user_id}'"
         cur.execute(sql)
