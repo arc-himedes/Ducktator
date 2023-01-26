@@ -57,6 +57,17 @@ def handle_message(event):
         con = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = con.cursor()
 
+        if userMsg == 'createmembers' and event.source.user_id == ducks['Archie']:
+          sql = '''CREATE TABLE members 
+            (uid TEXT PRIMARY KEY NOT NULL UNIQUE,
+            username	TEXT NOT NULL UNIQUE,
+            money	INT NOT NULL,
+            daily   TEXT,
+            notifs  TEXT);'''
+          cur.execute(sql)
+          con.commit()
+          msg = "created table:> members"
+
         sql = f"SELECT * FROM members WHERE uid = '{event.source.user_id}'"
         cur.execute(sql)
         records = cur.fetchall()
