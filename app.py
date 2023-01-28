@@ -57,25 +57,14 @@ def handle_message(event):
         con = psycopg2.connect(DATABASE_URL, sslmode='require')
         cur = con.cursor()
 
-        if userMsg == 'createmembers' and event.source.user_id == ducks['Archie']:
-          sql = '''CREATE TABLE members 
-            (uid TEXT PRIMARY KEY NOT NULL UNIQUE,
-            username	TEXT NOT NULL UNIQUE,
-            money	INT NOT NULL,
-            daily   TEXT,
-            notifs  TEXT);'''
-          cur.execute(sql)
-          con.commit()
-          msg = "created table:> members"
-        '''
         sql = f"SELECT * FROM members WHERE uid = '{event.source.user_id}'"
         cur.execute(sql)
         records = cur.fetchall()
         if len(records) != 0:
             if records[0][4] == 'F':
                 notify = False
-        '''
-        if userMsg == "/createmembers":
+        
+        if listMsg[0] == "/boot" and event.source.user_id == ducks["Archie"]:
           pass
         # help commands
         elif userMsg == "/?":
@@ -765,7 +754,7 @@ def handle_message(event):
             if event.source.user_id != ducks['Archie']:
                 msg = "you lack authorisation for this command"
             else:
-                sql = f'''INSERT INTO bot VALUES ('/feed', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAfkQf_22apKRKiyvAkjaI61-RSogTtbIajg&usqp=CAU', 'T', 40, 50, 7200, 0, 'I am not very hungry right now');'''
+                sql = f'''INSERT INTO bot VALUES ('/bath', 'https://i.pinimg.com/originals/f4/aa/76/f4aa7698c24366dc5f82fe8a97da2333.jpg', 'T', 20, 30, 3600, 0, 'I am not very dirty right now');'''
                 cur.execute(sql)
                 con.commit()
                 msg = "command added"
