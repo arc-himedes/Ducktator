@@ -750,20 +750,7 @@ def handle_message(event):
                 msg = f"{listMsg[1]} table reset"
 
         elif listMsg[0] == "/reload" and event.source.user_id == ducks["Archie"]:
-          logs = '''commands contains:>
-('/hellothere', 'generalkenobi')
-('/dgidontknow', 'i do not think you are the duckiest. maybe work on your confidence or your quacking?')
-('/dgnoneoftheabove', 'i do not think you are the duckiest. maybe work on your confidence or your quacking?')
-('/dgquack', 'you are the duckiest of them all!')
-('/feed', '(^>^) nom nom')
-('/dgyes', 'i do not think you are the duckiest. maybe work on your confidence or your quacking?')
-('/duckgame', 'are you the duckiest of them all?     a) /dg quack    b) /dg yes    c) /dg i dont know    d) /dg none of the above')
-('/petsheet', 'OMC Pet Sheet:     https://docs.google.com/spreadsheets/d/1u5g9hHoHaNHzHlQURvCieeIJC-TRI-IqjzZCtLQF9kw/edit?usp')
-('/pet', 'uwu')
-('/example', 'this is an example command')
-('/love', 'i love you guys definitely more than roooray! 🤫😘')
-('/happy', 'you make me happy!')
-('/throw', '👋🥬    🥬     🥬   🥺')'''.split('\n')
+          logs = '''enter table log here'''.split('\n')
           for index in range(len(logs)):
             if index != 0:
               sql = f'''INSERT INTO {listMsg[1]} VALUES {logs[index]}'''
