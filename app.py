@@ -370,7 +370,7 @@ def handle_message(event):
                     con.commit()
                     msg = "username updated"
         elif listMsg[0] == "/indoctrinate" and event.source.user_id == ducks["Archie"]:
-            sql = f"SELECT * FROM members WHERE uid = '{listMsg[1]}'"
+            sql = f"SELECT * FROM members WHERE uid = '{normalListMsg[1]}'"
             cur.execute(sql)
             records = cur.fetchall()
             if len(records) == 0:
