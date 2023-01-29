@@ -374,8 +374,8 @@ def handle_message(event):
             cur.execute(sql)
             records = cur.fetchall()
             if len(records) == 0:
-                profile = line_bot_api.get_group_member_profile(omcID, listMsg[1])
-                sql = f"INSERT INTO members VALUES ('{listMsg[1]}', '{profile.display_name}', 100, '{date.today()}', 'T');"
+                profile = line_bot_api.get_group_member_profile(omcID, normalListMsg[1])
+                sql = f"INSERT INTO members VALUES ('{profile.user_id}', '{profile.display_name}', 100, '{date.today()}', 'T');"
                 cur.execute(sql)
                 con.commit()
                 msg = f"welcome to the ducknasty {profile.display_name} 😈"
