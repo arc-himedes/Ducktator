@@ -360,7 +360,7 @@ def handle_message(event):
                 sql = f"INSERT INTO members VALUES ('{profile.user_id}', '{profile.display_name}', 100, '{date.today()}', 'T');"
                 cur.execute(sql)
                 con.commit()
-                msg = "welcome to the clique"
+                msg = "welcome to the ducknasty"
             else:
                 if records[0][1] == line_bot_api.get_group_member_profile(omcID, event.source.user_id).display_name:
                     msg = "you have already been initialised"
@@ -369,6 +369,19 @@ def handle_message(event):
                     cur.execute(sql)
                     con.commit()
                     msg = "username updated"
+        elif listMsg[0] == "/indoctrinate" and event.source.user_id == ducks["Archie"]:
+            sql = f"SELECT * FROM members WHERE uid = '{listMsg[1]}'"
+            cur.execute(sql)
+            records = cur.fetchall()
+            if len(records) == 0:
+                profile = line_bot_api.get_group_member_profile(omcID, listMsg[1])
+                sql = f"INSERT INTO members VALUES ('{profile.user_id}', '{profile.display_name}', 100, '{date.today()}', 'T');"
+                cur.execute(sql)
+                con.commit()
+                msg = f"welcome to the ducknasty {profile.display_name} 😈"
+            else:
+                msg = "they have already been initialised"
+
         # manually create members
         elif listMsg[0] == "/cm":
             if event.source.user_id != ducks['Archie']:
@@ -398,9 +411,9 @@ def handle_message(event):
             records = cur.fetchall()
             if len(records) == 0:
                 if len(listMsg) == 1:
-                    msg = "you have not joined the clique yet (/initiate)"
+                    msg = "you have not joined the ducknasty yet (/initiate)"
                 else:
-                    msg = f"{username[1:]} has not joined the clique yet (/initiate)"
+                    msg = f"{username[1:]} has not joined the ducknasty yet (/initiate)"
             else:
                 if len(listMsg) == 1:
                     msg = f"you have {records[0][2]} coins"
@@ -417,14 +430,14 @@ def handle_message(event):
             cur.execute(sql)
             records = cur.fetchall()
             if len(records) == 0:
-                msg = "either they have not joined the clique, or have since changed their username "
+                msg = "either they have not joined the ducknasty, or have since changed their username "
             else:
                 payee = records[0]
                 sql = f"SELECT * FROM members WHERE uid = '{event.source.user_id}'"
                 cur.execute(sql)
                 records = cur.fetchall()
                 if len(records) == 0:
-                    msg = "you have not joined the clique yet (/initiate)"
+                    msg = "you have not joined the ducknasty yet (/initiate)"
                 else:
                     payer = records[0]
                     if int(listMsg[-1]) <= 5:
@@ -464,7 +477,7 @@ def handle_message(event):
                 cur.execute(sql)
                 records = cur.fetchall()
                 if len(records) == 0:
-                    msg = "either they have not joined the clique, or they have changed their username since"
+                    msg = "either they have not joined the ducknasty, or they have changed their username since"
                 else:
                     sql = f"UPDATE members SET money = {int(records[0][2]) + int(listMsg[len(normalListMsg) - 1])} WHERE username = '{username[1:]}';"
                     cur.execute(sql)
@@ -490,7 +503,7 @@ def handle_message(event):
                 cur.execute(sql)
                 records = cur.fetchall()
                 if len(records) == 0:
-                    msg = "you have not joined the clique yet (/initiate)"
+                    msg = "you have not joined the ducknasty yet (/initiate)"
                 else:
                     record = records[0]
                     # check for game
@@ -568,7 +581,7 @@ def handle_message(event):
                     cur.execute(sql)
                     records = cur.fetchall()
                     if len(records) == 0:
-                        msg = "you have not joined the clique yet (/initiate)"
+                        msg = "you have not joined the ducknasty yet (/initiate)"
                     else:
                         # check flip choice
                         if listMsg[3] in ["heads", "head", "h", "tails", "tail", "t"]:
@@ -595,7 +608,7 @@ def handle_message(event):
             records = cur.fetchall()
             if len(records) == 0:
                 if len(listMsg) == 1:
-                    msg = "you have not joined the clique yet (/initiate)"
+                    msg = "you have not joined the ducknasty yet (/initiate)"
             else:
                 if records[0][4] == 'F':
                     msg = "you have already muted acknowledgements"
@@ -610,7 +623,7 @@ def handle_message(event):
             records = cur.fetchall()
             if len(records) == 0:
                 if len(listMsg) == 1:
-                    msg = "you have not joined the clique yet (/initiate)"
+                    msg = "you have not joined the ducknasty yet (/initiate)"
             else:
                 if records[0][4] == 'T':
                     msg = "you have already unmuted acknowledgements"
@@ -793,7 +806,7 @@ def handle_message(event):
                 cur.execute(sql)
                 records = cur.fetchall()
                 if len(records) == 0:
-                    msg = "you have not joined the clique yet (/initiate)"
+                    msg = "you have not joined the ducknasty yet (/initiate)"
                 else:
                     msgs = []
                     m_id, m_un, m_csh, m_day, m_not = records[0]
