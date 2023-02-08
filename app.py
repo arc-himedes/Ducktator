@@ -778,7 +778,7 @@ def handle_message(event):
             if event.source.user_id != ducks['Archie']:
                 msg = "you lack authorisation for this command"
             else:
-                sql = f'''INSERT INTO bot VALUES ('/bath', 'https://i.pinimg.com/originals/f4/aa/76/f4aa7698c24366dc5f82fe8a97da2333.jpg', 'T', 20, 30, 3600, 0, 'I am not very dirty right now');'''
+                sql = '''INSERT INTO bot VALUES ('/hug', 'https://render.fineartamerica.com/images/rendered/default/print/8/5.5/break/images-medium-5/you-make-me-smile-amy-tyler.jpg', 'T', 1, 3, 5, 0, 'I am still hugging someone');'''
                 cur.execute(sql)
                 con.commit()
                 msg = "command added"
