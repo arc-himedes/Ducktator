@@ -657,6 +657,8 @@ def handle_message(event):
             msg = f"{line_bot_api.get_group_member_profile(omcID, event.source.user_id).display_name}: {translator.translate(cmdBody, dest=listMsg[0][1:]).text}"
 
         # hidden commands
+        elif listMsg[0] == "/quack":
+          msg = "https://www.instagram.com/reel/CltrKgZrhCN/?igshid=YmMyMTA2M2Y="
         elif listMsg[0] == "/rm":
             rich_menu_to_create = RichMenu(
                 size=RichMenuSize(width=2500, height=843),
