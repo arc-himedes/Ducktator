@@ -98,6 +98,8 @@ def handle_message(event):
                 msgs += [TextSendMessage(text="Hey!\nThat's not very nice, here's a 200 coin fine\n>.<")]
                 line_bot_api.reply_message(event.reply_token, msgs)
                 reply = False
+        elif listMsg[0] in ["/tf", "/tableflip"]:
+            msg = "(ノಠ益ಠ)ノ彡┻━┻"
         elif listMsg[0] == "/spank":
             msg = f"{cmdBody} 🫲🏻🫲🏻🫲🏻🫲🏻"
         elif listMsg[0] == "/kiss":
