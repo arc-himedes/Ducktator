@@ -16,6 +16,8 @@ line_bot_api = LineBotApi('fenSu73BZugLhqUSHlM4sCn8N96EM5GyGL8fZ94b08d5Rq//nbJW1
 handler = WebhookHandler('813dd53913d86c280c920e605a0cc1cb')
 translator = googletrans.Translator()
 
+def testOne():
+  return "pass"
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -695,6 +697,8 @@ def handle_message(event):
         # test quacksly status
         elif listMsg[0] == "/test":
             msg = "up and running..."
+        elif listMsg[0] == "/test1":
+            msg = testOne()
 
         # reset tables
         elif listMsg[0] == "/ap":
