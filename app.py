@@ -30,9 +30,19 @@ def callback():
         abort(400)
     return 'OK'
 
+def newtest(e):
+  msgs = TextSendMessage(text='test passed?')
+  line_bot_api.reply_message(e.reply_token, msgs)
+  quit()
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    me = 'Ueebac62da11acc018847944b1d1bf1f8'
+    if event.message.text == "/newtest" and event.source.user_id == me:
+        newtest(event)
+        line_bot_api.push_message(me, TextSendMessage(text='not quit'))
+        return
+        line_bot_api.push_message(me, TextSendMessage(text='not returned'))
     ducks = {'Archie': 'Ueebac62da11acc018847944b1d1bf1f8', 'Kita': 'Ub66a0a6b6bdc9770a0eb30db63e7a08f'}
     omcID = "C3e810369fe7fd60e213006be1d4900a5"
     # omcSID = "C786765f0f194d1986f3ca2d385ea7670"
