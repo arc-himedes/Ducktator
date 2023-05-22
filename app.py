@@ -37,6 +37,8 @@ def newtest(e):
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    if event.message.text[:5] == "/echo":
+      line_bot_api.reply_message(event.reply_token, TextSendMessage(text=event.message.text))
     me = 'Ueebac62da11acc018847944b1d1bf1f8'
     if event.message.text == "/newtest" and event.source.user_id == me:
         newtest(event)
