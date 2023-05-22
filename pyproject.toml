@@ -6,10 +6,6 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Flask = "^2.3.2"
-googletrans = "^3.0.0"
-line-bot-sdk = "^2.4.2"
-psycopg2 = "^2.9.6"
 
 [tool.poetry.dev-dependencies]
 
